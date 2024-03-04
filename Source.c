@@ -2,11 +2,11 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-#define MAX_SIZE 128 // Максимальный размер массива
+#define MAX_SIZE 128
 
-int *maskArray;
-int userArray[MAX_SIZE], userArrayLength = 0;
+int userArray[MAX_SIZE];
 int max = 0, size = 0;
+int* maskArray;
 
 int main()
 {
@@ -93,5 +93,4 @@ int sortArray(void)
 int finish(void) 
 {
 	free(maskArray);
-	exit(0);
 }
