@@ -11,7 +11,7 @@ int main()
 {
 	arrayInput();
 	outputUserArray();
-
+	//sortArray();
 	finish();
 }
 
@@ -70,8 +70,8 @@ int sortArray(void)
 	{
 		maskArray[i] = 0;
 	}
-	printf("\n");
 
+	printf("\n");
 	for (int i = 0; i < max; i++)
 	{
 		for (int j = 0; j < userArrayLength; j++)
@@ -84,7 +84,6 @@ int sortArray(void)
 	}
 
 	printf("Sorted array:\n");
-
 	for (int i = 0; i < max; i++)
 	{
 		for (int j = 0; j < maskArray[i]; j++)
