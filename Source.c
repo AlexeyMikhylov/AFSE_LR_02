@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <malloc.h>
 
 
@@ -19,14 +19,14 @@ int arrayInput(void)
 {
 	int d;
 
-	file = fopen("input.txt", "r");
-	if (file == NULL)
+	file = fopen("input.txt", "r"); //открываем файл для чтения
+	if (file == NULL) //если файл возвращает NULL, т.е. файла нет
 	{
 		printf("File not found\n");
 		exit(0);
 	}
 
-	while (!feof(file))
+	while (!feof(file)) //пока не достигнут конец файла, считываем числа и считаем их колличество
 	{
 		fscanf(file, "%d", &d);
 		printf("%d \n", d);
@@ -36,14 +36,14 @@ int arrayInput(void)
 	printf("%d\n", userArrayLength);
 
 	printf("Original array:\n");
-	userArray = (int*)malloc(userArrayLength * sizeof(int));
-	for (int i = 0; i < userArrayLength; i++)
+	userArray = (int*)malloc(userArrayLength * sizeof(int)); //выделяем память для массива, равное количеству чисел в файле
+	for (int i = 0; i < userArrayLength; i++) //заполняем динамический массив числами из файла (ошибка тут)
 	{
 		fscanf(file, "%d", &userArray[i]); //why the bunch of fucking fucks???
 	}
 }
 
-int outputUserArray(void)
+int outputUserArray(void) //вывод исходного массива
 {
 	for (int i = 0; i < userArrayLength; i++)
 	{
@@ -52,7 +52,7 @@ int outputUserArray(void)
 	printf("\n");
 }
 
-int sortArray(void)
+int sortArray(void) //сортировка исходного массива
 {
 	max = userArray[0];
 	for (int i = 0; i < userArrayLength; i++)
@@ -93,9 +93,10 @@ int sortArray(void)
 	}
 }
 
-int finish(void)
+int finish(void) //освобождение памяти, завершение программы
 {
 	fclose(file);
 	free(userArray);
 	//free(maskArray);
+	exit(0);
 }
