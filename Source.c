@@ -2,15 +2,17 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-int *userArray, *maskArray;
-int userArrayLength = 0;
-int max = 0;
+#define MAX_SIZE 128 // Максимальный размер массива
+
+int *maskArray;
+int userArray[MAX_SIZE], userArrayLength = 0;
+int max = 0, size = 0;
 
 int main()
 {
 	arrayInput();
 	outputUserArray();
-	//sortArray();
+	sortArray();
 	finish();
 
 	return 0;
@@ -18,53 +20,38 @@ int main()
 
 int arrayInput(void)
 {
+	FILE* file = fopen("input.txt", "r");
 
-	FILE* file = NULL;
-	int d;
-
-	file = fopen("input.txt", "r"); //открываем файл для чтения
-	if (file == NULL) //если файл возвращает NULL, т.е. файла нет
+	if (file != NULL)
 	{
-		printf("File not found\n");
-		exit(0);
+		while (fscanf(file, "%d", &userArray[size]) == 1 && size < MAX_SIZE) {
+			size++;
+		}
+		fclose(file);
 	}
-
-	while (!feof(file)) //пока не достигнут конец файла, считываем числа и считаем их колличество
-	{
-		fscanf(file, "%d", &d);
-		printf("\t%d", d);
-		userArrayLength++;
+	else {
+		printf("error opening file.\n");
 	}
-	printf("\n");
-	printf("array length: %d\n", userArrayLength);
-
-	printf("\nOriginal array:\n");
-	userArray = (int*)malloc(userArrayLength * sizeof(int)); //выделяем память для массива, равное количеству чисел в файле
-
-	for (int i = 0; i < userArrayLength; i++) //заполняем динамический массив числами из файла (ошибка тут)
-	{
-		fscanf(file, "%d", &userArray[i]);
-	}
-	printf("\n");
-
-	fclose(file);
 }
 
 //вывод исходного массива
 int outputUserArray(void) 
 {
-	for (int i = 0; i < userArrayLength; i++)
+	printf("Original array:\n");
+	for (int i = 0; i < size; i++)
 	{
 		printf("\t%d", userArray[i]);
 	}
 	printf("\n");
+
+	return 0;
 }
 
 //сортировка исходного массива
 int sortArray(void) 
 {
 	max = userArray[0];
-	for (int i = 0; i < userArrayLength; i++)
+	for (int i = 0; i < size; i++)
 	{
 		if (max < userArray[i])
 		{
@@ -83,7 +70,7 @@ int sortArray(void)
 	printf("\n");
 	for (int i = 0; i < max; i++)
 	{
-		for (int j = 0; j < userArrayLength; j++)
+		for (int j = 0; j < size; j++)
 		{
 			if (i == userArray[j])
 			{
@@ -100,12 +87,11 @@ int sortArray(void)
 			printf("\t%d", i);
 		}
 	}
+	printf("\n");
 }
 
-//освобождение памяти, завершение программы
 int finish(void) 
 {
-	free(userArray);
-	//free(maskArray);
+	free(maskArray);
 	exit(0);
 }
