@@ -34,7 +34,6 @@ int arrayInput(void)
 	}
 }
 
-//вывод исходного массива
 int outputUserArray(void) 
 {
 	printf("Original array:\n");
