@@ -46,7 +46,6 @@ int outputUserArray(void)
 	return 0;
 }
 
-//сортировка исходного массива
 int sortArray(void) 
 {
 	max = userArray[0];
