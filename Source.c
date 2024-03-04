@@ -3,9 +3,9 @@
 
 
 FILE* file = NULL;
-int *userArray;
-int userArrayLen = 0;
-int maxElement = 0;
+int *userArray, *maskArray;
+int userArrayLength = 0;
+int max = 0;
 
 int main()
 {
@@ -13,9 +13,47 @@ int main()
 	outputUserArray();
 
 	finish();
-	
-	/*
+}
 
+int arrayInput(void)
+{
+	int d;
+
+	file = fopen("input.txt", "r");
+	if (file == NULL)
+	{
+		printf("File not found\n");
+		exit(0);
+	}
+
+	while (!feof(file))
+	{
+		fscanf(file, "%d", &d);
+		printf("%d \n", d);
+		userArrayLength++;
+	}
+	printf("\n");
+	printf("%d\n", userArrayLength);
+
+	printf("Original array:\n");
+	userArray = (int*)malloc(userArrayLength * sizeof(int));
+	for (int i = 0; i < userArrayLength; i++)
+	{
+		fscanf(file, "%d", &userArray[i]); //why the bunch of fucking fucks???
+	}
+}
+
+int outputUserArray(void)
+{
+	for (int i = 0; i < userArrayLength; i++)
+	{
+		printf("\t%d", userArray[i]);
+	}
+	printf("\n");
+}
+
+int sortArray(void)
+{
 	max = userArray[0];
 	for (int i = 0; i < userArrayLength; i++)
 	{
@@ -24,10 +62,8 @@ int main()
 			max = userArray[i];
 		}
 	}
-
 	max++;
 
-	int *maskArray;
 	maskArray = (int*)malloc(max * sizeof(int));
 
 	for (int i = 0; i < max; i++)
@@ -56,54 +92,11 @@ int main()
 			printf("\t%d", i);
 		}
 	}
-
-	free(maskArray);*/
-}
-
-int arrayInput(void)
-{
-	char c;
-
-	file = fopen("input.txt", "r");
-	if (file == NULL)
-	{
-		printf("File not found\n");
-		exit(0);
-	}
-
-	while (fscanf(file, "%c", &c) == 1)
-	{
-		fprintf(stdout, "%c", c);
-		userArrayLen += 1;
-	}
-	printf("\n");
-	//printf("\n%d\n", userArrayLen);
-
-	userArrayLen /= 2;
-	userArray = (int*)malloc(userArrayLen * sizeof(int));
-	printf("Original array:\n");
-	for (int i = 0; i < userArrayLen; i++)
-	{
-		fscanf(file, "%d", &userArray[i]); //why the bunch of fucking fucks???
-	}
-}
-
-int outputUserArray(void)
-{
-	for (int i = 0; i < userArrayLen; i++)
-	{
-		printf("\t%d", userArray[i]);
-	}
-	printf("\n");
-}
-
-int sortArray(void)
-{
-
 }
 
 int finish(void)
 {
 	fclose(file);
 	free(userArray);
+	//free(maskArray);
 }
