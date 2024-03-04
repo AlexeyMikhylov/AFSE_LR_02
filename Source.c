@@ -11,7 +11,7 @@ int main()
 	outputUserArray();
 
 	finish();
-
+	 
 	/*int max = 0;
 
 	for (int i = 0; i < userArrayLength; i++)
