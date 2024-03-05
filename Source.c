@@ -5,8 +5,9 @@
 #define MAX_SIZE 128
 
 int userArray[MAX_SIZE];
-int max = 0, size = 0;
-int* maskArray;
+int max = 0, min = 0, size = 0;
+int* maskArrayPos;
+int* maskArrayNeg;
 
 int main()
 {
@@ -38,7 +39,7 @@ int outputUserArray(void)
 	printf("Original array:\n");
 	for (int i = 0; i < size; i++)
 	{
-		printf("\t%d", userArray[i]);
+		printf("%d  ", userArray[i]);
 	}
 	printf("\n");
 }
@@ -46,6 +47,7 @@ int outputUserArray(void)
 int sortArray(void) 
 {
 	max = userArray[0];
+	min = userArray[0];
 	for (int i = 0; i < size; i++)
 	{
 		if (max < userArray[i])
@@ -55,11 +57,14 @@ int sortArray(void)
 	}
 	max++;
 
-	maskArray = (int*)malloc(max * sizeof(int));
+	maskArrayPos = (int*)malloc(max * sizeof(int));
+
+	maskArrayNeg = (int*)malloc(max * sizeof(int));
 
 	for (int i = 0; i < max; i++)
 	{
-		maskArray[i] = 0;
+		maskArrayPos[i] = 0;
+		maskArrayNeg[i] = 0;
 	}
 
 	printf("\n");
@@ -69,7 +74,19 @@ int sortArray(void)
 		{
 			if (i == userArray[j])
 			{
-				maskArray[i] += 1;
+				maskArrayPos[i] += 1;
+			}
+		}
+	}
+
+	printf("\n");
+	for (int i = 1; i < max; i++)
+	{
+		for (int j = 1; j < size; j++)
+		{
+			if ((- 1 * i) == userArray[j])
+			{
+				maskArrayNeg[i] += 1;
 			}
 		}
 	}
@@ -77,9 +94,17 @@ int sortArray(void)
 	printf("Sorted array:\n");
 	for (int i = 0; i < max; i++)
 	{
-		for (int j = 0; j < maskArray[i]; j++)
+		for (int j = 0; j < maskArrayNeg[i]; j++)
 		{
-			printf("\t%d", i);
+			printf("%d  ", -i);
+		}
+	}
+
+	for (int i = 0; i < max; i++)
+	{
+		for (int j = 0; j < maskArrayPos[i]; j++)
+		{
+			printf("%d  ", i);
 		}
 	}
 	printf("\n");
@@ -87,5 +112,5 @@ int sortArray(void)
 
 int finish(void) 
 {
-	free(maskArray);
+	free(maskArrayPos);
 }
