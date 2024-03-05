@@ -54,17 +54,26 @@ int sortArray(void)
 		{
 			max = userArray[i];
 		}
+
+		if (min > userArray[i])
+		{
+			min = userArray[i];
+		}
 	}
 	max++;
 
 	maskArrayPos = (int*)malloc(max * sizeof(int));
 
-	maskArrayNeg = (int*)malloc(max * sizeof(int));
+	maskArrayNeg = (int*)malloc(min * sizeof(int));
 
 	for (int i = 0; i < max; i++)
 	{
 		maskArrayPos[i] = 0;
-		maskArrayNeg[i] = 0;
+	}
+
+	for (int i = min; i > 0; i++)
+	{
+		maskArrayPos[i] = 0;
 	}
 
 	printf("\n");
@@ -80,7 +89,7 @@ int sortArray(void)
 	}
 
 	printf("\n");
-	for (int i = 1; i < max; i++)
+	for (int i = min; i > 0; i++)
 	{
 		for (int j = 1; j < size; j++)
 		{
@@ -89,12 +98,14 @@ int sortArray(void)
 				maskArrayNeg[i] += 1;
 			}
 		}
+		printf("%d  ", maskArrayNeg[i]);
+
 	}
 
 	printf("Sorted array:\n");
-	for (int i = 0; i < max; i++)
+	for (int i = min; i > 0; i++)
 	{
-		for (int j = 0; j < maskArrayNeg[i]; j++)
+		for (int j = -1; j < maskArrayNeg[i]; j++)
 		{
 			printf("%d  ", -i);
 		}
@@ -113,4 +124,5 @@ int sortArray(void)
 int finish(void) 
 {
 	free(maskArrayPos);
+	free(maskArrayNeg);
 }
