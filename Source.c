@@ -14,8 +14,6 @@ int main()
 	outputUserArray();
 	sortArray();
 	finish();
-
-	return 0;
 }
 
 int arrayInput(void)
@@ -29,7 +27,8 @@ int arrayInput(void)
 		}
 		fclose(file);
 	}
-	else {
+	else 
+	{
 		printf("error opening file.\n");
 	}
 }
@@ -42,8 +41,6 @@ int outputUserArray(void)
 		printf("\t%d", userArray[i]);
 	}
 	printf("\n");
-
-	return 0;
 }
 
 int sortArray(void) 
